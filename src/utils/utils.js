@@ -17,23 +17,66 @@ export const turn = () => {
   const turnA = "Jugador1";
   const turnB = "Jugador2";
   let turnPlayer = turnA;
+  const jugadaA = [];
+  const jugadaB = [];
 
-  cells.forEach((cell) => {
+  const jugadasGanadoras = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7],
+  ];
+
+  cells.forEach((cell, index) => {
     cell.addEventListener("click", (e) => {
       e.preventDefault();
 
       if (cell.innerHTML === "") {
         if (turnPlayer === turnA) {
-          cell.innerHTML = "o";
+          cell.innerHTML = "O";
+
+          jugadaA.push(index + 1);
+          if (checkJugada(jugadaA, jugadasGanadoras)) {
+            alert("Jugador A HAS GANADO");
+            resetGame(cells);
+          }
           turnPlayer = turnB;
         } else {
-          cell.innerHTML = "y";
+          cell.innerHTML = "X";
+          jugadaB.push(index + 1);
+          if (checkJugada(jugadaB, jugadasGanadoras)) {
+            alert("Jugador B has ganado!!!");
+            resetGame(cells);
+          }
           turnPlayer = turnA;
         }
       }
     });
   });
-  //Una vez hagamos click empezará por el turnoA, es decir, el jugador1, y llamaremos a la funcion addposition que añadirá en un array la posicion clickada.
+};
 
-  //Para saber si es una posición ganadora, crearemos un array de arrays con jugadas ganadoras, si algun jugador llega a 3 clicks en celdas vacias se valorará y llamará a la funcion jugadas ganadoras, donde compararemos las posiciones de aquel que tenga 3 clicks con dichas jugadas, si es igual saldrá un mensaje diciendo jugador ganador es X
+const checkJugada = (jugada, jugadasGanadoras) => {
+  let winner = false;
+
+  jugadasGanadoras.forEach((combination) => {
+    const allPositionMatch = combination.every((position) =>
+      jugada.includes(position)
+    );
+
+    if (allPositionMatch) {
+      winner = true;
+    }
+  });
+
+  return winner;
+};
+
+const resetGame = (cells) => {
+  cells.forEach((cell) => {
+    cell.innerHTML = "";
+  });
 };
