@@ -10,7 +10,7 @@ function App() {
       <h1 className="title">TIC TAC TOE</h1>
       <div id="table" className="table" onClick={turn}></div>
       <button className="start__game-button" onClick={createTable}>
-        Play
+        Play & Reset
       </button>
     </>
   );

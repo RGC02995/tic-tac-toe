@@ -38,7 +38,6 @@ export const turn = () => {
       if (cell.innerHTML === "") {
         if (turnPlayer === turnA) {
           cell.innerHTML = "O";
-
           jugadaA.push(index + 1);
           if (checkJugada(jugadaA, jugadasGanadoras)) {
             setTimeout(() => {
@@ -47,7 +46,7 @@ export const turn = () => {
               alert("Jugador A HAS GANADO");
               cells.innerHTML = "";
               resetGame(cells);
-            }, "1000");
+            }, "100");
           }
           turnPlayer = turnB;
         } else {
@@ -60,7 +59,7 @@ export const turn = () => {
               alert("Jugador B has ganado!!!");
               cells.innerHTML = "";
               resetGame(cells);
-            }, "1000");
+            }, "100");
           }
           turnPlayer = turnA;
         }
