@@ -17,8 +17,8 @@ export const turn = () => {
   const turnA = "Jugador1";
   const turnB = "Jugador2";
   let turnPlayer = turnA;
-  const jugadaA = [];
-  const jugadaB = [];
+  let jugadaA = [];
+  let jugadaB = [];
 
   const jugadasGanadoras = [
     [1, 2, 3],
@@ -41,22 +41,35 @@ export const turn = () => {
 
           jugadaA.push(index + 1);
           if (checkJugada(jugadaA, jugadasGanadoras)) {
-            alert("Jugador A HAS GANADO");
-            resetGame(cells);
+            setTimeout(() => {
+              jugadaA = [];
+              jugadaB = [];
+              alert("Jugador A HAS GANADO");
+              cells.innerHTML = "";
+              resetGame(cells);
+            }, "1000");
           }
           turnPlayer = turnB;
         } else {
           cell.innerHTML = "X";
           jugadaB.push(index + 1);
           if (checkJugada(jugadaB, jugadasGanadoras)) {
-            alert("Jugador B has ganado!!!");
-            resetGame(cells);
+            setTimeout(() => {
+              jugadaA = [];
+              jugadaB = [];
+              alert("Jugador B has ganado!!!");
+              cells.innerHTML = "";
+              resetGame(cells);
+            }, "1000");
           }
           turnPlayer = turnA;
         }
       }
     });
   });
+  return {
+    cells,
+  };
 };
 
 const checkJugada = (jugada, jugadasGanadoras) => {
@@ -75,7 +88,8 @@ const checkJugada = (jugada, jugadasGanadoras) => {
   return winner;
 };
 
-const resetGame = (cells) => {
+export const resetGame = (cells) => {
+  console.log(cells);
   cells.forEach((cell) => {
     cell.innerHTML = "";
   });
